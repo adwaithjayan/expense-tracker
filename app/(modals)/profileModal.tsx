@@ -16,7 +16,6 @@ import {useAuth} from "@/context/authContext";
 import {updateUser} from "@/services/userService";
 import {useRouter} from "expo-router";
 import * as ImagePicker from "expo-image-picker";
-import { refEqual } from 'firebase/firestore';
 
 const ProfileModal = () => {
       const {user,updateUserData} = useAuth();
@@ -41,10 +40,10 @@ const ProfileModal = () => {
                   aspect:[4,3],
                   quality:0.5
             })
-
+            
+            
             if(!result.canceled){
                   setUserData({...userData,image:result.assets[0]})
-                  console.log(result.assets[0])
             }
       }
 

@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native'
 import React from 'react'
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { colors, radius, spacingX, spacingY } from '@/constants/theme';
@@ -6,14 +6,24 @@ import { verticalScale } from '@/utils/styling';
 import Typo from '@/components/Type';
 import { PlusCircle } from 'phosphor-react-native';
 import { useRouter } from 'expo-router';
+import useFetchData from '@/hooks/useFetchData';
+import { WalletType } from '@/types';
+import { orderBy, where } from 'firebase/firestore';
+import { useAuth } from '@/context/authContext';
+import Loading from '@/components/Loading';
+import WalletItem from '@/components/walletItem';
 
 const Wallet = () => {
       const router = useRouter();
-      const getTotalBalence=()=>{
-            return 0
-      }
+      const {user} = useAuth();
+      const {data,loading,error} = useFetchData<WalletType>("wallets",[where("uid","==",user?.uid),orderBy("created","desc")]);
+      const getTotalBalence=()=>data.reduce((total,item)=>{
+                  total = total + (item.amount ||0);
+                  return total;
+            },0)
+      
       return (
-          <ScreenWrapper style={{backgroundColor: colors.black}}>
+          <ScreenWrapper style={{backgroundColor:colors.black}}>
                 <View style={styles.container}>
                   <View style={styles.balencedView}>
                         <View style={{alignItems:'center'}}>
@@ -24,10 +34,13 @@ const Wallet = () => {
                   <View style={styles.wallets}>
                         <View style={styles.flexRow}>
                               <Typo size={20} fontWeight={'500'}>My Wallets</Typo>
-                              <TouchableOpacity onPress={()=>router.push('./(modals)/walletModals')}>
+                              <TouchableOpacity onPress={()=>router.push('/(modals)/walletModals')}>
                                     <PlusCircle weight='fill' color={colors.primary} size={verticalScale(33)}/>
                               </TouchableOpacity>
                         </View>
+
+                        {loading && <Loading/>}
+                        <FlatList data={data} renderItem={({item,index})=><WalletItem item={item} index={index} router={router}/>} contentContainerStyle={styles.listStyle}/>
 
                   </View>
                 </View>

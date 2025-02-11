@@ -5,11 +5,11 @@ import {colors} from "@/constants/theme";
 
 
 const {height} = Dimensions.get("window");
-const ScreenWrapper = ({style,children}:ScreenWrapperProps) => {
-      let pT = Platform.OS === 'ios'?height*0.06 :50
+const ScreenWrapper = ({style={backgroundColor:colors.neutral900},children}:ScreenWrapperProps) => {
+      let pT = Platform.OS === 'ios'?height*0.06 :15
       return (
-          <View style={[{paddingTop:pT,flex:1,backgroundColor:colors.neutral900},style]}>
-                <StatusBar barStyle={'light-content'}/>
+          <View style={[{paddingTop:pT,flex:1},style]}>
+                <StatusBar barStyle={'light-content'} backgroundColor={style&& style.backgroundColor} />
                 {children}
           </View>
       )

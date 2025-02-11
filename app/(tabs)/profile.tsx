@@ -70,7 +70,7 @@ export default function Profile() {
             }
       }
       return (
-          <ScreenWrapper>
+          <ScreenWrapper style={{backgroundColor:colors.neutral900}}>
                 <View style={styles.container}>
                       <Header title={"Profile"} />
 
