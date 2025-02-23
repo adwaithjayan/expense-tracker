@@ -33,7 +33,7 @@ const Home = () => {
                               <Typo size={16} color={colors.neutral400}>Hello,</Typo>
                               <Typo size={20} fontWeight={'500'}>{user?.name}</Typo>
                         </View>
-                        <TouchableOpacity style={styles.searchIcon}>
+                        <TouchableOpacity style={styles.searchIcon} onPress={()=>router.push('./(modals)/searchModal)')}>
                               <MagnifyingGlass size={verticalScale(22)} color={colors.neutral200} weight='bold'/>
                         </TouchableOpacity>
                   </View>
@@ -43,7 +43,7 @@ const Home = () => {
                         </View>
                         <TransactionList loading={loading} data={data} emptyListMessage='No Recent Transactions' title='Recent Transactions'/>
                   </ScrollView>
-                  <Button style={styles.flotingButton} onPress={()=>router.push('/(modals)/transactionModel')}>
+                  <Button style={styles.flotingButton} onPress={()=>router.push('./(modals)/transactionModal')}>
                         <Plus color={colors.black} weight='bold' size={verticalScale(24)}/>
                   </Button>
             </View>

@@ -77,6 +77,7 @@ export default function Profile() {
                       <View style={styles.userInfo}>
                             <View>
                                   <Image source={getProfileImage(user?.image)} style={styles.avatar} contentFit='cover' transition={100}/>
+
                             </View>
                             <View style={styles.nameContainer}>
                                   <Typo size={24} fontWeight={'600'} color={colors.neutral100}>{user?.name}</Typo>

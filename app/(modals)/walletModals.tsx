@@ -16,7 +16,7 @@ import ImageUpload from '@/components/imageUpload';
 import { createOrUpdateWallet, deleteWallet } from '@/services/walletService';
 import { Trash } from 'phosphor-react-native';
 
-const walletModal = () => {
+const WalletModal = () => {
       const {user} = useAuth();
       const router = useRouter();
       const [wallet, setWallet] = useState<WalletType>({
@@ -113,7 +113,7 @@ const walletModal = () => {
           </ModuleWrapper>
       )
 }
-export default walletModal
+export default WalletModal
 const styles = StyleSheet.create({
       avatar:{
             width:verticalScale(135),
